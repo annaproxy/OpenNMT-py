@@ -163,9 +163,9 @@ class WeightNormConv2d(nn.Conv2d):
 
             w = scalar.view(self.out_channels, *
                             ([1] * (len(v.size()) - 1))).expand_as(v) * v
+            
+            x = F.conv2d(x.contiguous(), w.contiguous(), b.contiguous(), self.stride, self.padding, self.dilation, self.groups)
 
-            x = F.conv2d(x, w, b, self.stride,
-                         self.padding, self.dilation, self.groups)
             return x
 
 # This is used nowhere in the code at the moment (Vincent Nguyen 05/18/2018)
